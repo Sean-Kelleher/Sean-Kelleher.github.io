@@ -1,0 +1,80 @@
+<html>
+	<head>
+		<TITLE>Interact</TITLE>
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+		
+		<link rel="stylesheet" type="text/css" href="cssaesthetic.css">		
+
+		<style type="text/css">
+			.click{background-color: yellow; font-family: Impact, sans-serif}
+    	</style>
+    	
+    	<!--the following is JQuery-->
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    	<script type="text/javascript">
+
+    	$(document).ready(function(){
+    		var images = ['btme1.jpg', 'btme2.jpg', 'btme3.jpg', 'btme4.jpg', 'btme5.jpg', 'btme6.jpg', 'btme7.jpg', 'btme8.jpg', 'btme9.jpg', 'btme10.jpg' ];    		
+    		var imageNo=0;
+    		var pastImage = 0;
+
+    		$("#image").click(function(){
+    			pastImage = imageNo;
+    			imageNo = Math.floor((Math.random()*10));
+
+    			while (imageNo===pastImage) {
+    				imageNo = Math.floor((Math.random()*10));    				
+    			}
+    			$("body").css("background-image", "url(" + images[imageNo]+ ")")
+    			$("center").css("background-color", "#FFFFCC")
+    		});
+
+
+    		$("#sound").click(function(){
+    			$("audio").attr("src", "Vektroid-Untitled.mp3")
+    		});
+    		$("#soundStop").click(function(){
+    			$("audio").attr("src", " ")
+    		});
+
+    		$("#fader").click(function(){
+    			$("audio").attr("src", " ")
+    			$("center").css("background-color", "#FFFFFF")
+    			$("body").css("background-image", "none")
+    			$("#fading").fadeTo("slow", 0);
+    			$("#slowFade").delay("slow").fadeOut("200")
+    			$('#return').delay("slow").fadeIn("200")
+    		});
+		}); 
+    	</script>
+
+	</head>
+
+	<body>
+		
+		<center>
+			<span id="fading">Click <span class="click" id="image">Here</span> to give this page a background. (As many times as you want!)<br>
+			Click <span class="click" id="sound">Here</span> for some pretty music, or <span class="click" id="soundStop">Here</span> to make it stop. <br>						
+			<span id="slowFade">Click <span class="click" id = "fader">Here</span> to say goodbye...</span><br>			
+		</center>
+
+		<center>
+			<span id ="return" style = "display:none"> <a href="https://github.com/Sean-Kelleher">Back to my page</span></a>	
+		</center>
+
+
+
+
+
+		<audio autoplay loop>
+			<source src="" type="audio/mpeg">
+		</audio>
+
+		
+	</body>
+
+	
+
+</html>
