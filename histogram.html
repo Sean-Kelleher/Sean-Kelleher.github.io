@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>Histogram Generator</title>
+		<style type="text/css">
+			body{
+					
+			}
+		</style>
+	</head>
+
+	<body>
+		Enter a value (0-100), then the value's name.<br>
+		<form>
+			<input type="text" maxlength="3" placeholder="value" id="data" size="10"></input>
+			<input type="text" maxlength="3" placeholder="name" id="name" size="10"></input>
+		</form>		
+		<p><span id="dataNull"></span> <span id="nameNull"></span> </p>
+		<button onclick="isWrong('single')">Add</button><br>
+		<em>Or</em><br>
+		Put in a bunch of values, and an equal amount of names, each separated by single spaces.
+		<br>
+		<form>
+			<input type="text" placeholder="values" id="valueList" size="100"></input><br>
+			<input type="text" placeholder="names" id="nameList" size="100"></input>			
+		</form>		
+		<p><span id="unmatched"></span> <span id='nameListNull'></span> <span id="valueListNull"></span></p>
+		<button onclick="isWrong('list')">Add</button><br>
+
+		<canvas id="can1" width="23" height="400">Your browser does not support the HTML5 canvas tag.</canvas>
+		<canvas id="can2" width="400" height="400" style="border: 1px black solid;">Your browser does not support the HTML5 canvas tag.</canvas>
+		<br>
+		<!---->
+		<script type="text/javascript">
+			var can1 = document.getElementById("can1"),
+				ctx1=can1.getContext("2d"),
+			    ctxMain = document.getElementById("can2").getContext("2d");
+			
+			//array of entered data
+			var data = [];			
+			//an array of the bars
+			var bars =[];
+
+			var width;
+			
+			function randomColor(){
+				var colors = ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'];
+				var randColor = "#"+colors[Math.floor(Math.random() * 16)]+colors[Math.floor(Math.random() * 16)]
+					+colors[Math.floor(Math.random() * 16)]+colors[Math.floor(Math.random() * 16)]
+					+colors[Math.floor(Math.random() * 16)]+colors[Math.floor(Math.random() * 16)];
+				return randColor;
+			}
+			//checks to see if fields are empty or if the two list fields are inequal in length.
+			function isWrong(field){
+				clearWarnings();
+				var data = parseInt(document.getElementById("data").value);
+				var title = document.getElementById("name").value;
+				var valueList = document.getElementById('valueList').value;
+				var nameList = document.getElementById('nameList').value;				
+				//for one bar
+				if(field=='single')
+				{
+					if(document.getElementById("data").value=="")
+						document.getElementById('dataNull').innerHTML="You forgot to put in a value!";
+					if(title=="")
+						document.getElementById('nameNull').innerHTML="You forgot to put in a name!";				
+					else										
+						add();					
+				}
+				//for the list
+				if(field=='list')
+				{
+					if((valueList.split(' ')).length!=(nameList.split(' ')).length && valueList!="" && nameList!="")
+					{
+						document.getElementById('unmatched').innerHTML="The amount of values and names must match.";
+					}										
+					if(valueList=="")
+						document.getElementById('valueListNull').innerHTML="You forgot to put in any values!";
+					if(nameList=="")
+						document.getElementById('nameListNull').innerHTML="You forgot to put in any names!";
+					if((valueList.split(' ')).length==(nameList.split(' ')).length && valueList!="" && nameList!="")						
+						addList();					
+				}
+			}
+			//adds things from the single value input
+			function add(){				
+				var input = parseInt(document.getElementById("data").value);
+				var title = document.getElementById("name").value;
+				data.push(input);
+				document.getElementById('amt').innerHTML=data.length;
+				width = 400/data.length;					
+				//object added to the bars array. 				
+				var newBar = {w: width, h:(input/100)*400, col: randomColor(), name: title};
+				for(var i=0;i<bars.length;i++)
+				{
+					bars[i].w=width;
+				}
+				bars.push(newBar);
+				erase();
+				createBars();				
+			}
+			//adds things from the list input
+			function addList(){
+				var valueList = document.getElementById("valueList").value.split(" ");
+				var nameList = document.getElementById('nameList').value.split(" ");
+				
+				for(var i=0;i<valueList.length;i++)
+				{
+					data.push(valueList[i]);
+				}
+				width = 400/data.length;				
+				
+				for(var i=0;i<valueList.length;i++)
+				{
+					var newBar = {w: width, h:(valueList[i]/100)*400, col: randomColor(), name: nameList[i]};
+					bars.push(newBar);
+				}
+				for(var i=0;i<bars.length;i++)
+				{
+					bars[i].w=width;
+				}
+				erase();	
+				createBars();				
+			}
+			
+			function createBars(){								
+				for(var i=0;i<bars.length;i++)
+				{		
+					ctxMain.beginPath();
+					ctxMain.rect(i*width,400-bars[i].h,bars[i].w,bars[i].h);
+					ctxMain.fillStyle=bars[i].col;
+					ctxMain.fill();
+					ctxMain.lineWidth=2;
+					ctxMain.strokeStyle = "black";
+					ctxMain.stroke();
+					ctxMain.font="13px arial";
+					ctxMain.textAlign="center";
+					ctxMain.fillStyle="black";
+					if(bars[i].h>=400)
+						ctxMain.fillText(bars[i].name, i*width+width/2, 10);
+					else
+						ctxMain.fillText(bars[i].name, i*width+width/2, 395-bars[i].h);
+				}
+			}
+			//clear the text areas
+			function clean(){
+				var textAreas = document.getElementsByTagName("input");
+				for(var i=0;i<textAreas.length;i++)
+				{
+					textAreas[i].value="";
+				}				
+			}
+			//clear any warnings about invalid entry
+			function clearWarnings(){
+				var spans = document.getElementsByTagName('span');
+				for(var i=0;i<spans.length;i++)
+				{
+					spans[i].innerHTML="";
+				}
+			}
+			function erase(){
+				ctxMain.fillStyle="white";
+				ctxMain.fillRect(0,0,400,400);				
+			}
+
+		//Below is everything related to tick mark creation
+
+			var number=100;
+			var tickLocation=10;
+			function tickMarks(num, y){				
+				ctx1.beginPath();
+				ctx1.lineWidth=2;
+				ctx1.lineCap="round";
+				ctx1.moveTo(20, y);
+				ctx1.lineTo(22,y);
+				ctx1.stroke();
+				numbers(num, y);
+			}
+			function numbers(num, y){
+				ctx1.font= "11px arial";
+				ctx1.fillText(num, 0, y+4);
+			}
+			window.onload=function(){
+				for(var i =0;i<10;i++)
+				{
+					tickMarks(number,tickLocation);
+					number-=10;
+					tickLocation+=40;
+				}
+				//clearing the text boxes for if it's getting refreshed.
+				clean();
+			}					
+		</script>
+	</body>
+</html>
