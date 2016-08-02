@@ -63,19 +63,21 @@
 				if(field=='single')
 				{
 					if(document.getElementById("data").value=="")
-						document.getElementById('dataNull').innerHTML="You forgot to put in a value!";
+					{
+						document.getElementById('dataNull').innerHTML="You forgot to put in a value!";						
+					}
 					if(title=="")
-						document.getElementById('nameNull').innerHTML="You forgot to put in a name!";				
+					{
+						document.getElementById('nameNull').innerHTML="You forgot to put in a name!";						
+					}
 					else										
 						add();					
 				}
 				//for the list
 				if(field=='list')
 				{
-					if((valueList.split(' ')).length!=(nameList.split(' ')).length && valueList!="" && nameList!="")
-					{
+					if((valueList.split(' ')).length!=(nameList.split(' ')).length && valueList!="" && nameList!="")					
 						document.getElementById('unmatched').innerHTML="The amount of values and names must match.";
-					}										
 					if(valueList=="")
 						document.getElementById('valueListNull').innerHTML="You forgot to put in any values!";
 					if(nameList=="")
@@ -88,8 +90,7 @@
 			function add(){				
 				var input = parseInt(document.getElementById("data").value);
 				var title = document.getElementById("name").value;
-				data.push(input);
-				document.getElementById('amt').innerHTML=data.length;
+				data.push(input);				
 				width = 400/data.length;					
 				//object added to the bars array. 				
 				var newBar = {w: width, h:(input/100)*400, col: randomColor(), name: title};
@@ -126,6 +127,7 @@
 			}
 			
 			function createBars(){								
+				document.getElementById('amt').innerHTML=bars.length;
 				for(var i=0;i<bars.length;i++)
 				{		
 					ctxMain.beginPath();
@@ -143,6 +145,7 @@
 					else
 						ctxMain.fillText(bars[i].name, i*width+width/2, 395-bars[i].h);
 				}
+				clean();
 			}
 			//clear the text areas
 			function clean(){
