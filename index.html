@@ -1,13 +1,44 @@
 <html>
 	<head>
-		<TITLE>Web Projects</TITLE>
+		<title>Web Projects</title>
+        <style type="text/css">
+            #histogram{
+                background-color: #00c000;
+                float: left;
+                position: relative;
+                left:40px;                
+                border: 1px #006622 solid;
+            }
+            #interact{
+                border: 1px #24248f solid;
+                background-color: #9898e6;
+                float:right;
+                position: relative;
+                right:40px;
+            }
+            div{               
+                border-radius: 25px;
+                width: 500px;
+                text-align: center;
+                padding: 1%;                
+            }            
+            body{
+                background-color: #ffcc99;
+                font-family: sans-serif;
+            }                        
+        </style>
+        <script type="text/javascript"></script>
 	</head>
 
 	<body>
-		<center>
-            Hi, welcome to my experiments with JavaScript, HTML5, etc.<br>
-            Click <a href="histogram.html">here</a> to use a histogram generator.<br>
-            Click <a href="aesthetic_interaction.html">here</a> for pretty pictures and sounds to interact with.
-		</center>
+		
+        <p><center>Hi. welcome to my experiments with JavaScript, HTML5, etc.<br>
+            <a href="https://github.com/Sean-Kelleher">Back to my main GitHub</a></center></p>
+            <br>
+
+        <div id="histogram">Histogram generator. (HTML5 &lt;canvas&gt;, js)<br><a href="histogram.html"><img src="histo.png"></a></div> 
+        
+        <div id="interact">Pretty pictures and sounds you can interact with. (JQuery, js, Bootstrap)<br><a href="aesthetic_interaction.html"><img src="interact.png"></a></div>
+		
 	</body>
 </html>
