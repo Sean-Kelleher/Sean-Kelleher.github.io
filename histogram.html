@@ -2,19 +2,14 @@
 <html>
 	<head>
 		<meta charset="utf-8"/>
-		<title>Histogram Generator</title>
-		<style type="text/css">
-			body{
-					
-			}
-		</style>
+		<title>Histogram Generator</title>		
 	</head>
 
 	<body>
 		Enter a value (0-100), then the value's name.<br>
 		<form>
 			<input type="text" maxlength="3" placeholder="value" id="data" size="10"></input>
-			<input type="text" maxlength="3" placeholder="name" id="name" size="10"></input>
+			<input type="text" placeholder="name" id="name" size="10"></input>
 		</form>		
 		<p><span id="dataNull"></span> <span id="nameNull"></span> </p>
 		<button onclick="isWrong('single')">Add</button><br>
@@ -31,7 +26,6 @@
 		<canvas id="can1" width="23" height="400">Your browser does not support the HTML5 canvas tag.</canvas>
 		<canvas id="can2" width="400" height="400" style="border: 1px black solid;">Your browser does not support the HTML5 canvas tag.</canvas>
 		<br>
-		Amount of bars: <span id="amt"></span>
 		<!---->
 		<script type="text/javascript">
 			var can1 = document.getElementById("can1"),
@@ -63,21 +57,19 @@
 				if(field=='single')
 				{
 					if(document.getElementById("data").value=="")
-					{
-						document.getElementById('dataNull').innerHTML="You forgot to put in a value!";						
-					}
+						document.getElementById('dataNull').innerHTML="You forgot to put in a value!";
 					if(title=="")
-					{
-						document.getElementById('nameNull').innerHTML="You forgot to put in a name!";						
-					}
+						document.getElementById('nameNull').innerHTML="You forgot to put in a name!";				
 					else										
 						add();					
 				}
 				//for the list
 				if(field=='list')
 				{
-					if((valueList.split(' ')).length!=(nameList.split(' ')).length && valueList!="" && nameList!="")					
+					if((valueList.split(' ')).length!=(nameList.split(' ')).length && valueList!="" && nameList!="")
+					{
 						document.getElementById('unmatched').innerHTML="The amount of values and names must match.";
+					}										
 					if(valueList=="")
 						document.getElementById('valueListNull').innerHTML="You forgot to put in any values!";
 					if(nameList=="")
@@ -127,7 +119,6 @@
 			}
 			
 			function createBars(){								
-				document.getElementById('amt').innerHTML=bars.length;
 				for(var i=0;i<bars.length;i++)
 				{		
 					ctxMain.beginPath();
@@ -145,7 +136,6 @@
 					else
 						ctxMain.fillText(bars[i].name, i*width+width/2, 395-bars[i].h);
 				}
-				clean();
 			}
 			//clear the text areas
 			function clean(){
@@ -169,7 +159,6 @@
 			}
 
 		//Below is everything related to tick mark creation
-
 			var number=100;
 			var tickLocation=10;
 			function tickMarks(num, y){				
