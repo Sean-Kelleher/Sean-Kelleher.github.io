@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>Painting with Shifting Colors</title>
+		<style type="text/css">
+			#can{
+				border: 1px black solid;		
+			}
+			#about{
+				position: relative;
+				float: right;
+				border: 1px solid #00802b;
+				background-color: #66ff99;
+				right: 100px;
+				width: 200px;
+				padding: 4px;
+				border-radius: 20px;
+				border-style: ridge;
+			}
+			#clearButton{
+				position: relative;
+				float: right;
+				right:100px;
+				border-radius: 1px;				
+			}
+		</style>
+	</head>
+	
+	<body>
+		<div id="about"><center><h3>About</h3></center>
+			<ul>
+				<li>Click and drag your mouse across the canvas frame to create a trail of circles.</li>
+				<li>The colors of the circles will be generated randomly from a specific set of possible values that
+					produce certain ranges of colors.</li>
+				<li>The left zone is deep colors.</li>
+				<li>The middle zone is black and white.</li>
+				<li>The right zone is pastel.</li>
+				<li>The clear button erases everything the user has done.</li>
+			</ul>
+		</div>
+		<button id="clearButton" onclick="clear()">Clear</button>
+		<canvas onmousedown="init(event)" onmousemove="check(event)" id="can" width="800" height="600"></canvas><br>
+
+		<script type="text/javascript">
+			const canvas = document.getElementById("can");
+			const ctx = canvas.getContext("2d");
+			const ctxLine = canvas.getContext("2d");			
+			drawLines();
+						
+			var enabled=false;
+
+			clearButton.addEventListener("click", clear);
+			canvas.addEventListener("mousedown", function(){enabled=true});
+			canvas.addEventListener("mouseup", function(){enabled=false});						
+
+			function clear(){		
+				ctx.clearRect(0,0,800,600);
+				drawLines();			
+			}
+			function check(event){
+				if(enabled)
+				{
+					var x = event.clientX,
+						y = event.clientY;
+					ctx.beginPath();					
+					if(x<=300)
+						ctx.fillStyle=randomDark();
+					else if(x>300&&x<=500)
+						ctx.fillStyle=randomBW();
+					else if(x>500)
+						ctx.fillStyle=randomBright();
+					ctx.arc(x-5,y-5,10,0,2*Math.PI);
+					ctx.fill();					
+					drawLines();
+				}	
+			}
+			function init(event){
+				var x = event.clientX,
+					y = event.clientY;				
+				drawLines();
+				ctx.beginPath();
+				if(x<=300)
+					ctx.fillStyle=randomDark();
+				else if(x>300&&x<=500)
+					ctx.fillStyle=randomBW();
+				else if(x>500)
+					ctx.fillStyle=randomBright();
+				ctx.arc(x-5,y-5,10,0,2*Math.PI);
+				ctx.fill();
+			}
+			function drawLines(){
+				ctx.strokeStyle="#444444";
+				ctxLine.beginPath();
+				ctxLine.moveTo(300,0);
+				ctxLine.lineTo(300,600);				
+				ctxLine.stroke();
+
+				ctxLine.beginPath();
+				ctxLine.moveTo(500,0);
+				ctxLine.lineTo(500,600);				
+				ctxLine.stroke();
+			}			
+			function randomBW(){
+				var colors = Math.floor(Math.random()*10+1);
+				var randColor = `#${colors}${colors}${colors}${colors}${colors}${colors}`;
+				return randColor;
+			}
+			function randomBright(){
+				var colors = ['6','7','8','9','A','B','C','D','E','F'];
+				var randColor = "#"+colors[Math.floor(Math.random() * 10)]+colors[Math.floor(Math.random() * 10)]
+					+colors[Math.floor(Math.random() * 10)]+colors[Math.floor(Math.random() * 10)]
+					+colors[Math.floor(Math.random() * 10)]+colors[Math.floor(Math.random() * 10)];
+				return randColor;
+			}
+			function randomDark(){
+				var colors = ['0','1','2','3','4','5','6','7','8','9'];
+				var randColor = "#"+colors[Math.floor(Math.random() * 10)]+colors[Math.floor(Math.random() * 10)]
+					+colors[Math.floor(Math.random() * 10)]+colors[Math.floor(Math.random() * 10)]
+					+colors[Math.floor(Math.random() * 10)]+colors[Math.floor(Math.random() * 10)];
+				return randColor;
+			}			
+		</script>
+	</body>
+</html>

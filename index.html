@@ -3,47 +3,63 @@
 	<head>
 		<title>Web Projects</title>
         <style type="text/css">
+
+            #container{
+                box-orient:horizontal;
+                display: box;  
+
+                -moz-box-orient:horizontal;
+                display: -moz-box;
+                              
+                justify-content: space-between;
+            }
+
             #histogram{
-                background-color: #00c000;
-                float: left;
-                position: relative;
-                left:40px;                
-                border: 1px #006622 solid;
+                box-flex: 1;
+                background-color: #00c000;            
+                border: 2px #006622 ridge;
+                 
             }
             #interact{
-                border: 1px #24248f solid;
-                background-color: #9898e6;
-                float:right;
-                position: relative;
-                right:40px;
+                box-flex: 1;
+                border: 2px #24248f ridge;
+                background-color: #9898e6;                
+                
             }
-            div{               
-                border-radius: 25px;
-                width: 500px;
+            #paint{
+                box-flex: 1;
+                border: 2px #24248f ridge;
+                background-color: #9809f2;  
+            }
+            p{                
+                width: 320px;
                 text-align: center;
-                padding: 1%;                
-            }            
+                padding: 4%;                
+            }
             body{
                 background-color: #ffcc99;
-                font-family: sans-serif;
+                font-family: serif;
                 font-size: 14px;
-            }                        
+            }   
+            img{
+                display: inline;
+            }                
         </style>
-        <script type="text/javascript"></script>
 	</head>
 
 	<body>
-		
-        <p><center>Hi. welcome to my experiments with JavaScript, HTML5, etc. The languages and techniques used on each page are described in the title.<br>
-            <a href="https://github.com/Sean-Kelleher">Back to my main GitHub</a></center></p>
-            <br>
-        <center style="font-size: 13px">This page uses HTML and CSS3.</center>
-            <br>
-
-        <div id="histogram">Histogram generator. (HTML5 &lt;canvas&gt;, js)<br><a href="histogram.html"><img src="histo.png"></a></div> 
-        
-        <div id="interact">Pretty pictures and sounds you can interact with. (JQuery, js, Bootstrap, CSS, HTML5)<br><a href="aesthetic_interaction.html"><img src="interact.png"></a></div>
-        
-		
+		<center>
+            <div>Hi. welcome to my experiments with JavaScript, HTML5, etc. The languages and techniques used on each page are described in the title.<br>
+                <a href="https://github.com/Sean-Kelleher">Back to my main GitHub</a></div>
+                <br>
+            <span style="font-size: 13px">This page uses HTML and CSS3.</span>
+                <br>
+            <div id="container">
+                <p id="histogram">Histogram generator. (HTML5 &lt;canvas&gt;, js)<br><a href="histogram.html"><img src="histo.png"></a></p>
+                <p id="paint">Paints a trail of circles of semi-random colors determined by where the cursor is. (HTML5 &lt;canvas&gt;, js, CSS3)<br> <a href="shifting_paint.html"><img src="painting.png"></a></p>
+                <p id="interact">Pretty pictures and sounds you can interact with. (JQuery, js, Bootstrap, CSS, HTML5)<br><a href="aesthetic_interaction.html">
+                    <img src="interact.png"></a></p>
+            </div>
+        </center>
 	</body>
 </html>
