@@ -4,35 +4,39 @@
 		<title>Web Projects</title>
         <style type="text/css">
 
-            #container{
-                box-orient:horizontal;
-                display: box;  
-
-                -moz-box-orient:horizontal;
-                display: -moz-box;
-                              
-                justify-content: space-between;
+            .container{
+                display: grid;
+                grid-template-columns: repeat(6,1fr);
+                grid-gap: 10px;
+                grid-auto-rows: minmax(10px, auto);
             }
 
             #histogram{
-                box-flex: 1;
+                grid-column: 1;
+                grid-row: 1;
                 background-color: #00c000;            
-                border: 2px #006622 ridge;
-                 
+                border: 2px #006622 solid; 
             }
             #interact{
-                box-flex: 1;
-                border: 2px #24248f ridge;
-                background-color: #9898e6;                
-                
+                grid-column: 2;
+                grid-row: 1;
+                border: 2px #24248f solid;
+                background-color: #9898e6;
             }
             #paint{
-                box-flex: 1;
-                border: 2px #24248f ridge;
+                grid-column: 3;
+                grid-row: 1;
+                border: 2px #24248f solid;
                 background-color: #9809f2;  
             }
-            p{                
-                width: 320px;
+            #jamboree{
+                grid-column: 4;
+                grid-row: 1;
+                border: 2px #24248f solid;
+                background-color: #00cc66; 
+            }
+            p{
+                width: 400px;
                 text-align: center;
                 padding: 4%;                
             }
@@ -54,12 +58,16 @@
                 <br>
             <span style="font-size: 13px">This page uses HTML and CSS3.</span>
                 <br>
-            <div id="container">
+            <div class="container">
                 <p id="histogram">Histogram generator. (HTML5 &lt;canvas&gt;, js)<br><a href="histogram.html"><img src="histo.png"></a></p>
                 <p id="paint">Paints a trail of circles of semi-random colors determined by where the cursor is. (HTML5 &lt;canvas&gt;, js, CSS3)<br> <a href="shifting_paint.html">
                     <img src="https://raw.githubusercontent.com/Sean-Kelleher/Sean-Kelleher.github.io/master/painting.png"></a></p>
-                <p id="interact">Pretty pictures and sounds you can interact with. (JQuery, js, Bootstrap, CSS, HTML5)<br><a href="aesthetic_interaction.html">
+                <p id="interact">Pretty pictures and sounds you can interact with. (JQuery, js, Bootstrap, CSS, HTML5)<br><a href="aesthetic_interaction.html"><br>
                     <img src="interact.png"></a></p>
+                <p id="jamboree">
+                    Visualization of political terms vs scouting terms in President Trump's Boy Scount Jamboree speech 2017. (D3.js, CSS3, HTML5)<br>
+                    <a href="jamboree.html"><img src="jambo.png"></a>
+                </p>
             </div>
         </center>
 	</body>
